@@ -5,6 +5,9 @@ import com.example.programs.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class CustomerService {
@@ -13,11 +16,12 @@ public class CustomerService {
     public Customer createCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
-//    public Customer getCustomerById(Long customerId){
-//        Optional<Customer> OptionalCustomer= customerRepository.findById(customerId);
-//        return OptionalCustomer.get();
-//    }
-//    public List<Customer> getAllCustomers(){
-//        return customerRepository.findAll();
-//    }
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
+    }
+   public Customer getCustomerById(Long customerId){
+       Optional<Customer> OptionalCustomer= customerRepository.findById(customerId);
+      return OptionalCustomer.get();
+   }
+
 }

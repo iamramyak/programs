@@ -5,10 +5,9 @@ import com.example.programs.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/customer")
@@ -21,5 +20,16 @@ public class CustomerController {
         Customer savedCustomer = customerService.createCustomer(customer);
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
 
+    }
+    @GetMapping
+    public ResponseEntity<List<Customer>> getAllCustomers(){
+        List<Customer> customers= customerService.getAllCustomers();
+        return new ResponseEntity<>(customers,HttpStatus.OK);
+    }
+    @GetMapping({"/id"})
+    public ResponseEntity<Customer> UpdateCustomer(@PathVariable ("id") Long customerId,@RequestBody Customer customer) {
+        customer.setId(customerId);
+        Customer UpdatedCustomer= customerService.getCustomerById(customerId);
+        return new ResponseEntity<>(UpdatedCustomer,HttpStatus.OK);
     }
 }
